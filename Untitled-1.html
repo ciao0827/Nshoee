@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>酷炫球鞋購物網站</title>
+  <style>
+    /* Reset */
+    * {
+      margin: 0; padding: 0; box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    body {
+      display: flex;
+      min-height: 100vh;
+      background: #121212;
+      color: #eee;
+    }
+    /* 左側選單 */
+    nav {
+      width: 220px;
+      background: #1f1f1f;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      border-right: 2px solid #ff3c00;
+    }
+    nav h2 {
+      color: #ff3c00;
+      margin-bottom: 10px;
+      text-align: center;
+      letter-spacing: 2px;
+    }
+    nav a {
+      color: #ccc;
+      text-decoration: none;
+      padding: 10px;
+      border-radius: 6px;
+      transition: background 0.3s, color 0.3s;
+      font-weight: 600;
+    }
+    nav a:hover, nav a.active {
+      background: #ff3c00;
+      color: #121212;
+    }
+    /* 主內容區 */
+    main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+    }
+    /* 封面區 */
+    header {
+      position: relative;
+      height: 320px;
+      background: url('https://images.unsplash.com/photo-1519744792095-2f2205e87b6f?auto=format&fit=crop&w=1350&q=80') center/cover no-repeat;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      text-shadow: 0 0 8px #000;
+      font-size: 3rem;
+      font-weight: 900;
+      letter-spacing: 5px;
+      user-select: none;
+    }
+    header::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(0,0,0,0.5), rgba(0,0,0,0.8));
+      z-index: 0;
+    }
+    header > span {
+      position: relative;
+      z-index: 1;
+    }
+    /* 商品區 */
+    section.products {
+      padding: 30px 40px;
+      background: #181818;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 30px;
+    }
+    .product-card {
+      background: #222;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 0 10px #ff3c00aa;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.3s;
+    }
+    .product-card:hover {
+      transform: translateY(-10px);
+    }
+    .product-image {
+      width: 100%;
+      height: 180px;
+      background-size: cover;
+      background-position: center;
+    }
+    .product-info {
+      padding: 15px;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .product-info h3 {
+      font-size: 1.2rem;
+      margin-bottom: 8px;
+      color: #ff3c00;
+    }
+    .product-info p {
+      font-size: 0.9rem;
+      color: #ccc;
+      flex-grow: 1;
+    }
+    .product-info .price {
+      font-weight: 700;
+      font-size: 1.1rem;
+      margin-top: 10px;
+      color: #fff;
+    }
+    .btn-buy {
+      margin-top: 15px;
+      background: #ff3c00;
+      border: none;
+      padding: 10px;
+      border-radius: 6px;
+      color: #121212;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .btn-buy:hover {
+      background: #e63600;
+    }
+    /* 購物車提示 */
+    #cart-message {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #ff3c00dd;
+      color: #121212;
+      padding: 15px 25px;
+      border-radius: 30px;
+      font-weight: 700;
+      box-shadow: 0 0 15px #ff3c00cc;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.5s;
+      z-index: 100;
+    }
+    #cart-message.show {
+      opacity: 1;
+      pointer-events: auto;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <h2>球鞋購物</h2>
+    <a href="#" class="active">最新資訊</a>
+    <a href="#">全部商品</a>
+    <a href="#">熱銷商品</a>
+    <a href="#">打折商品</a>
+    <a href="#">關於品牌創業資訊</a>
+  </nav>
+  <main>
+    <header><span>酷炫球鞋專賣</span></header>
+    <section class="products" aria-label="商品展示區">
+      <article class="product-card">
+        <div class="product-image" style="background-image:url('https://images.unsplash.com/photo-1600185368890-3d5b3a2c9b0f?auto=format&fit=crop&w=600&q=80');"></div>
+        <div class="product-info">
+          <h3>烈焰紅跑鞋</h3>
+          <p>輕量透氣，適合長時間跑步，讓你跑得更快更遠。</p>
+          <div class="price">$3200</div>
+          <button class="btn-buy" onclick="addToCart('烈焰紅跑鞋')">加入購物車</button>
+        </div>
+      </article>
+      <article class="product-card">
+        <div class="product-image" style="background-image:url('https://images.unsplash.com/photo-1528701800489-2b0f8a4e5e0f?auto=format&fit=crop&w=600&q=80');"></div>
+        <div class="product-info">
+          <h3>極地藍籃球鞋</h3>
+          <p>耐磨防滑，專為籃球場設計，提升你的場上表現。</p>
+          <div class="price">$4500</div>
+          <button class="btn-buy" onclick="addToCart('極地藍籃球鞋')">加入購物車</button>
+        </div>
+      </article>
+      <article class="product-card">
+        <div class="product-image" style="background-image:url('https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=600&q=80');"></div>
+        <div class="product-info">
+          <h3>經典白球鞋</h3>
+          <p>百搭款式，時尚又舒適，適合日常穿搭。</p>
+          <div class="price">$2800</div>
+          <button class="btn-buy" onclick="addToCart('經典白球鞋')">加入購物車</button>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <div id="cart-message"></div>
+
+  <script>
+    function addToCart(productName) {
+      const message = document.getElementById('cart-message');
+      message.textContent = `${productName} 已加入購物車！`;
+      message.classList.add('show');
+      setTimeout(() => {
+        message.classList.remove('show');
+      }, 2000);
+    }
+  </script>
+</body>
+</html>
